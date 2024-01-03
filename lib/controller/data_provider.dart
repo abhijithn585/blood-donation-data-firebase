@@ -16,7 +16,7 @@ class DataProvider extends ChangeNotifier {
   imageAdder(image) async {
     try {
       Reference imagefolder = service.main.child('images');
-      Reference uploadimage = imagefolder.child("${imagename}.jpg");
+      Reference uploadimage = imagefolder.child("$imagename.jpg");
       await uploadimage.putFile(image);
       downloadurl = await uploadimage.getDownloadURL();
       print(downloadurl);

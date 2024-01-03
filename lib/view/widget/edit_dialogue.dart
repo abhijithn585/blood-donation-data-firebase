@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:b/controller/data_provider.dart';
 import 'package:b/controller/home_provider.dart';
-import 'package:b/helpers/textfield.dart';
 import 'package:b/model/data_model.dart';
 import 'package:b/view/widget/dropdown.dart';
 import 'package:flutter/material.dart';
@@ -37,10 +36,10 @@ class _EditDialogueState extends State<EditDialogue> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width * 0.8,
       child: AlertDialog(
-        title: Text('Add Item'),
+        title: const Text('Update Item'),
         content: SingleChildScrollView(
           child: Consumer<HomeProviders>(
             builder: (context, provider, child) => Column(
@@ -59,16 +58,16 @@ class _EditDialogueState extends State<EditDialogue> {
                 ),
                 Row(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 35,
                     ),
                     TextButton(
                       onPressed: () {
                         provider.getCam(ImageSource.camera);
                       },
-                      child: Text('Camera'),
+                      child: const Text('Camera'),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     TextButton(
@@ -76,28 +75,65 @@ class _EditDialogueState extends State<EditDialogue> {
                         provider.getCam(ImageSource.gallery);
                         clicked = !clicked;
                       },
-                      child: Text('Gallery'),
+                      child: const Text('Gallery'),
                     ),
                   ],
                 ),
-                textFields(controller: nameController, text: 'Name'),
-                textFields(controller: ageController, text: 'Age'),
-                textFields(controller: phoneController, text: 'Mobile'),
-                DropDown()
+                TextFormField(
+                  controller: nameController,
+                  decoration: InputDecoration(
+                    hintText: 'Name',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                TextFormField(
+                  controller: ageController,
+                  decoration: InputDecoration(
+                    hintText: 'Age',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  keyboardType: TextInputType.number,
+                  maxLength: 2,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                TextFormField(
+                  controller: phoneController,
+                  decoration: InputDecoration(
+                    hintText: 'Number',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  keyboardType: TextInputType.number,
+                  maxLength: 10,
+                ),
+                const DropDown()
               ],
             ),
           ),
         ),
         actions: [
           TextButton(
-            child: Text('cancel'),
+            child: const Text('cancel'),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
           TextButton(
-            child: Text('save'),
-            onPressed: () {},
+            child: const Text('save'),
+            onPressed: () {
+              update(context);
+              Navigator.of(context).pop();
+            },
           ),
         ],
       ),

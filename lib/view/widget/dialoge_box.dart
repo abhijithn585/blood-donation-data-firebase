@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:b/controller/data_provider.dart';
 import 'package:b/controller/home_provider.dart';
-import 'package:b/helpers/textfield.dart';
 import 'package:b/model/data_model.dart';
 import 'package:b/view/widget/dropdown.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +20,10 @@ class AddingDialogue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width * 0.8,
       child: AlertDialog(
-        title: Text('Add Item'),
+        title: const Text('Add Item'),
         content: SingleChildScrollView(
           child: Consumer<HomeProviders>(
             builder: (context, provider, child) => Column(
@@ -44,7 +43,7 @@ class AddingDialogue extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 35,
                     ),
                     TextButton(
@@ -52,9 +51,9 @@ class AddingDialogue extends StatelessWidget {
                         Provider.of<HomeProviders>(context, listen: false)
                             .getCam(ImageSource.camera);
                       },
-                      child: Text('Camera'),
+                      child: const Text('Camera'),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     TextButton(
@@ -62,27 +61,61 @@ class AddingDialogue extends StatelessWidget {
                         Provider.of<HomeProviders>(context, listen: false)
                             .getCam(ImageSource.gallery);
                       },
-                      child: Text('Gallery'),
+                      child: const Text('Gallery'),
                     ),
                   ],
                 ),
-                textFields(controller: nameController, text: 'Name'),
-                textFields(controller: ageController, text: 'Age'),
-                textFields(controller: phoneController, text: 'Mobile'),
-                DropDown()
+                TextFormField(
+                  controller: nameController,
+                  decoration: InputDecoration(
+                    hintText: 'Name',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                TextFormField(
+                  controller: ageController,
+                  decoration: InputDecoration(
+                    hintText: 'Age',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  keyboardType: TextInputType.number,
+                  maxLength: 2,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                TextFormField(
+                  controller: phoneController,
+                  decoration: InputDecoration(
+                    hintText: 'Number',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  keyboardType: TextInputType.number,
+                  maxLength: 10,
+                ),
+                const DropDown()
               ],
             ),
           ),
         ),
         actions: [
           TextButton(
-            child: Text('Cancel'),
+            child: const Text('Cancel'),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
           TextButton(
-            child: Text('Add'),
+            child: const Text('Add'),
             onPressed: () {
               addData(context);
               Navigator.of(context).pop();

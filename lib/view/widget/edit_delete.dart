@@ -1,10 +1,10 @@
 import 'package:b/controller/data_provider.dart';
-import 'package:b/controller/home_provider.dart';
 import 'package:b/model/data_model.dart';
 import 'package:b/view/widget/edit_dialogue.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class EditDelete extends StatelessWidget {
   DataModel donators;
   String id;
@@ -12,13 +12,13 @@ class EditDelete extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(
-            leading: Icon(Icons.edit),
-            title: Text('Edit'),
+            leading: const Icon(Icons.edit),
+            title: const Text('Edit'),
             onTap: () {
               showDialog(
                 context: context,
@@ -32,8 +32,8 @@ class EditDelete extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.delete),
-            title: Text('Delete'),
+            leading: const Icon(Icons.delete),
+            title: const Text('Delete'),
             onTap: () {
               Provider.of<DataProvider>(context, listen: false).deleteDonor(id);
               Provider.of<DataProvider>(context, listen: false)
